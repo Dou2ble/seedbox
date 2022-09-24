@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div id="page">
+        <div id="options">
+            <a href="/pause"><img class="filter-white" src="/static/icon/pause.svg" alt="pause"></a>
+            <a href="/resume"><img class="filter-white" src="/static/icon/resume.svg" alt="resume"></a>
+        </div>
+        <h1>Torrents</h1>
+        <table>
+            <tr>
+                <th>Options</th>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Progress</th>
+                <th>Ratio</th>
+            </tr>
+            {% for torrent in torrents %}
+            <tr>
+                <td>
+                    <a href='{{ "/download/" + torrent["name"] }}' download><img class="filter-white" src="/static/icon/download.svg" alt="download"></a>
+                    <a href='{{ torrent["magnet_uri"] }}'><img class="filter-white" src="/static/icon/magnet.svg" alt="magnet"></a>
+                </td>
+                <td>{{ torrent["name"] }}</td>
+                <td>{{ torrent["size"] }}</td>
+                <td>
+                    <progress value='{{ torrent["progress"] }}' max="100">
+                        {{ torrent["progress"] }}%
+                    </progress>
+                </td>
+                <td>{{ torrent["ratio"] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
