@@ -37,14 +37,21 @@ def download(path):
     full_path = "torrents/"
     return send_file(os.getcwd()+"/torrents/" + path, as_attachment=True)
 
-@app.route("/resume")
-def resume():
-    qb.resume_all()
+@app.route("/resume/<path:path>")
+def resume(path):
+    if path == "all":
+        qb.resume_all()
+    else:
+        qb.resume(path)
     return ('', 204)
 
-@app.route("/pause")
-def pause():
-    qb.pause_all()
+@app.route("/pause/<path:path>")
+def pause(path):
+    if path == "all":
+        qb.pause_all()
+    else:
+        print(path)
+        qb.pause(path)
     return ('', 204)
 
 app.run(debug=True)

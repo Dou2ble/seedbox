@@ -10,13 +10,14 @@
 <body>
     <div id="page">
         <div id="options">
-            <a href="/pause"><img class="filter-white" src="/static/icon/pause.svg" alt="pause"></a>
-            <a href="/resume"><img class="filter-white" src="/static/icon/resume.svg" alt="resume"></a>
+            <a href="/pause/all"><img class="filter-white" src="/static/icon/pause.svg" alt="pause"></a>
+            <a href="/resume/all"><img class="filter-white" src="/static/icon/resume.svg" alt="resume"></a>
         </div>
         <h1>Torrents</h1>
         <table>
             <tr>
                 <th>Options</th>
+                <th></th>
                 <th>Name</th>
                 <th>Size</th>
                 <th>Progress</th>
@@ -27,6 +28,12 @@
                 <td>
                     <a href='{{ "/download/" + torrent["name"] }}' download><img class="filter-white" src="/static/icon/download.svg" alt="download"></a>
                     <a href='{{ torrent["magnet_uri"] }}'><img class="filter-white" src="/static/icon/magnet.svg" alt="magnet"></a>
+                    <br>
+                    <a href='{{ "/pause/" + torrent["infohash_v1"] }}'><img class="filter-white" src="/static/icon/pause.svg" alt="pause"></a>
+                    <a href='{{ "/resume/" + torrent["infohash_v1"] }}'><img class="filter-white" src="/static/icon/resume.svg" alt="resume"></a>
+                </td>
+                <td style="text-align: right;">
+                    <img src="/static/icon/file/iso.svg" alt="iso">
                 </td>
                 <td>{{ torrent["name"] }}</td>
                 <td>{{ torrent["size"] }}</td>
