@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Seedbox</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -13,6 +13,7 @@
             <a href="/pause/all"><img class="filter-white" src="/static/icon/pause.svg" alt="pause"></a>
             <a href="/resume/all"><img class="filter-white" src="/static/icon/resume.svg" alt="resume"></a>
         </div>
+        <br>
         <h1>Torrents</h1>
         <table>
             <tr>
@@ -21,27 +22,29 @@
                 <th>Name</th>
                 <th>Size</th>
                 <th>Progress</th>
+                <th>Status</th>
                 <th>Ratio</th>
             </tr>
             {% for torrent in torrents %}
             <tr>
                 <td>
-                    <a href='{{ "/download/" + torrent["name"] }}' download><img class="filter-white" src="/static/icon/download.svg" alt="download"></a>
+                    <a href='{{ "/download/" + torrent["content_path"] }}' download><img class="filter-white" src="/static/icon/download.svg" alt="download"></a>
                     <a href='{{ torrent["magnet_uri"] }}'><img class="filter-white" src="/static/icon/magnet.svg" alt="magnet"></a>
                     <br>
                     <a href='{{ "/pause/" + torrent["infohash_v1"] }}'><img class="filter-white" src="/static/icon/pause.svg" alt="pause"></a>
                     <a href='{{ "/resume/" + torrent["infohash_v1"] }}'><img class="filter-white" src="/static/icon/resume.svg" alt="resume"></a>
                 </td>
                 <td style="text-align: right;">
-                    <img src="/static/icon/file/iso.svg" alt="iso">
+                    <img src='{{ "/static/icon/file/" + torrent["filetype"] + ".svg" }}' alt="">
                 </td>
                 <td>{{ torrent["name"] }}</td>
                 <td>{{ torrent["size"] }}</td>
                 <td>
-                    <progress value='{{ torrent["progress"] }}' max="100">
+                    <progress value='{{ torrent["progress"] }}' max="1">
                         {{ torrent["progress"] }}%
                     </progress>
                 </td>
+                <td>{{ torrent["state"] }}</td>
                 <td>{{ torrent["ratio"] }}</td>
             </tr>
             {% endfor %}
