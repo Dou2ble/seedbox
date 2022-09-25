@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Rubik:wght@700&display=swap');
 
 body {
     color: #eceff4;
@@ -35,8 +35,9 @@ progress[value] {
 }
 
 h1 {
+    font-family: Rubik;
     text-align: center;
-    font-size: 48px;
+    font-size: 64px;
 }
 
 #options {
@@ -90,5 +91,9 @@ form {
 }
 
 .filter-white {
-    filter: invert(99%) sepia(23%) saturate(2%) hue-rotate(268deg) brightness(109%) contrast(100%)
+    filter: invert(99%) sepia(1%) saturate(3902%) hue-rotate(181deg) brightness(91%) contrast(112%);
+}
+
+.filter-red {
+    filter: invert(45%) sepia(13%) saturate(2162%) hue-rotate(305deg) brightness(96%) contrast(76%);
 }

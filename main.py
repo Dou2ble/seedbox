@@ -47,6 +47,7 @@ def home():
         else:
             torrent["filetype"] = "folder"
         torrent["content_path"] = torrent["content_path"].replace(os.getcwd() + "/torrents/", "")
+        torrent["state"] = torrent["state"].replace("DOWN", "").replace("UP", "")
 
     form = AddMagnet()
     if form.validate_on_submit():
@@ -67,8 +68,7 @@ def download(path):
             os.getcwd() + "/output/files.tar",
             as_attachment=False,
             download_filename=".tar"
-        )
-        
+        )        
 
 @app.route("/resume/<path:path>")
 def resume(path):
@@ -76,7 +76,7 @@ def resume(path):
         qb.resume_all()
     else:
         qb.resume(path)
-    return ('', 204)
+    return ("", 204)
 
 @app.route("/pause/<path:path>")
 def pause(path):
@@ -85,6 +85,16 @@ def pause(path):
     else:
         print(path)
         qb.pause(path)
-    return ('', 204)
+    return ("", 204)
+
+@app.route("/delete/<path:path>")
+def delete(path):
+    qb.delete(path)
+    return ("", 204)
+
+@app.route("/delete_permanentlyo/<path:path>")
+def delete_permanently(path):
+    qb.delete_permanently(path)
+    return ("", 204)
 
 app.run(host="0.0.0.0", debug=True)

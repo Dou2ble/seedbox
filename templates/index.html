@@ -25,6 +25,7 @@
                 <th>Progress</th>
                 <th>Status</th>
                 <th>Ratio</th>
+                <th></th>
             </tr>
             {% for torrent in torrents %}
             <tr>
@@ -47,6 +48,11 @@
                 </td>
                 <td>{{ torrent["state"] }}</td>
                 <td>{{ torrent["ratio"] }}</td>
+                <td>
+                    <a href='{{ "/delete/" + torrent["infohash_v1"] }}'><img class="filter-red" src="/static/icon/delete.svg" alt="delete"></a>
+                    <br>
+                    <a href='{{ "/delete_permanently/" + torrent["infohash_v1"] }}'><img class="filter-red" src="/static/icon/delete_permanently.svg" alt="delete permanently">
+                </td>
             </tr>
             {% endfor %}
         </table>
