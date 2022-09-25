@@ -14,8 +14,10 @@ from termcolor import colored
 import utils
 
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import StringField, PasswordField
 from wtforms.validators import DataRequired
+
+import hashlib
 
 load_dotenv()
 QB_PASSWORD = os.getenv("QB_PASSWORD")
@@ -26,7 +28,9 @@ app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 
 class AddMagnet(FlaskForm):
     magnet_uri = StringField("Magnet Link:", validators=[DataRequired()])
+    password = PasswordField("Password: ", validators=[DataRequired()])
 
+PASSWORD_HASH = os.getenv("PASSWORD_HASH")
 
 torrent_path = "/home/otto/Skrivbord/Python/flask-seedbox2/torrents"
 
@@ -51,7 +55,9 @@ def home():
 
     form = AddMagnet()
     if form.validate_on_submit():
-        qb.download_from_link(str(form.magnet_uri.data))
+        print(colored(hashlib.sha256(str(form.password.data).encode("utf-8")).hexdigest(), "red"))
+        if hashlib.sha256(str(form.password.data).encode("utf-8")).hexdigest() == PASSWORD_HASH:
+            qb.download_from_link(str(form.magnet_uri.data))
 
     return render_template("index.html", torrents=torrents, form=form)
 
@@ -92,7 +98,7 @@ def delete(path):
     qb.delete(path)
     return ("", 204)
 
-@app.route("/delete_permanentlyo/<path:path>")
+@app.route("/delete_permanently/<path:path>")
 def delete_permanently(path):
     qb.delete_permanently(path)
     return ("", 204)

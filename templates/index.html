@@ -62,7 +62,14 @@
             <img class="filter-white" style="cursor: pointer;" src="/static/icon/close.svg" alt="close" onclick='hideDiv("add-container")'>
             <form method="POST" action="/">
                 {{ form.csrf_token }}
-                {{ form.magnet_uri.label }} {{ form.magnet_uri() }}
+                {{ form.magnet_uri.label }}
+                <br>
+                {{ form.magnet_uri() }}
+                <br>
+                {{ form.password.label }}
+                <br>
+                {{ form.password() }}
+                <br>
                 <input type="submit" value="Add">
             </form>
         </div>
