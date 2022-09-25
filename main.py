@@ -13,11 +13,19 @@ from termcolor import colored
 
 import utils
 
+from flask_wtf import FlaskForm
+from wtforms import StringField
+from wtforms.validators import DataRequired
+
 load_dotenv()
 QB_PASSWORD = os.getenv("QB_PASSWORD")
 
 app = Flask(__name__)
 CORS(app)
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
+
+class AddMagnet(FlaskForm):
+    magnet_uri = StringField("Magnet Link:", validators=[DataRequired()])
 
 
 torrent_path = "/home/otto/Skrivbord/Python/flask-seedbox2/torrents"
@@ -27,9 +35,7 @@ qb.login("admin", QB_PASSWORD)
 
 print(colored(qb.torrents(), "green"))
 
-@app.route("/")
-@app.route("/main")
-@app.route("/index")
+@app.route("/", methods=["POST", "GET"])
 def home():
     torrents = qb.torrents()
 
@@ -42,7 +48,11 @@ def home():
             torrent["filetype"] = "folder"
         torrent["content_path"] = torrent["content_path"].replace(os.getcwd() + "/torrents/", "")
 
-    return render_template("index.html", torrents=torrents)
+    form = AddMagnet()
+    if form.validate_on_submit():
+        qb.download_from_link(str(form.magnet_uri.data))
+
+    return render_template("index.html", torrents=torrents, form=form)
 
 @app.route("/download/<path:path>")
 def download(path):

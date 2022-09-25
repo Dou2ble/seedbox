@@ -12,6 +12,7 @@
         <div id="options">
             <a href="/pause/all"><img class="filter-white" src="/static/icon/pause.svg" alt="pause"></a>
             <a href="/resume/all"><img class="filter-white" src="/static/icon/resume.svg" alt="resume"></a>
+            <img class="filter-white" src="/static/icon/add.svg" alt="add" onclick='showDiv("add-container")''>
         </div>
         <br>
         <h1>Torrents</h1>
@@ -50,5 +51,26 @@
             {% endfor %}
         </table>
     </div>
+    <div id="add-container">
+        <div id="add">
+            <img class="filter-white" style="display: block; margin-left: auto; margin-right: auto;" src="/static/icon/close.svg" alt="close" onclick='hideDiv("add-container")'>
+            <form method="POST" action="/">
+                {{ form.csrf_token }}
+                {{ form.magnet_uri.label }} {{ form.magnet_uri() }}
+                <input type="submit" value="Add">
+            </form>
+        </div>
+    </div>
 </body>
 </html>
+
+<script>
+    //document.getElementById("button").onclick = toggleDiv()
+    function showDiv(id) {
+        document.getElementById(id).style.visibility = "visible"
+    }
+
+    function hideDiv(id) {
+        document.getElementById(id).style.visibility = "hidden"
+    }
+</script>
