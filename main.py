@@ -1,15 +1,15 @@
+import configparser
+import io
 import json
+import os
+import pathlib
+import tarfile
 
+from dotenv import load_dotenv
 from flask import Flask, render_template, send_file
 from flask_cors import CORS
 from qbittorrent import Client
 from termcolor import colored
-from dotenv import load_dotenv
-import os
-import configparser
-import io
-import tarfile
-import pathlib
 
 import utils
 
@@ -26,9 +26,6 @@ qb = Client("http://localhost:8080/")
 qb.login("admin", QB_PASSWORD)
 
 print(colored(qb.torrents(), "green"))
-print(colored(qb.torrents(filter=True), "red"))
-
-#qb.download_from_link(magnet, savepath=torrent_path)
 
 @app.route("/")
 @app.route("/main")

@@ -1,3 +1,4 @@
 /.env
 /torrents
 /output
+**/__pycache__/
