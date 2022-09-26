@@ -17,7 +17,7 @@ from wtforms.validators import DataRequired
 
 import utils
 
-load_dotenv()
+load_dotenv()# loads dotenv
 QB_PASSWORD = os.getenv("QB_PASSWORD")
 
 app = Flask(__name__)
