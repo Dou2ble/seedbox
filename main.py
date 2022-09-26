@@ -64,12 +64,12 @@ def download(path):
     if os.path.isfile("torrents/" + path):
         return send_file(os.getcwd()+"/torrents/" + path, as_attachment=True)
     else:
-        with ZipFile("output/files.tar", "w") as f:
+        with ZipFile("output/files.zip", "w") as f:
             for file in os.listdir("torrents/" + path):
                 f.add("torrents/" + path + "/" + file)
 
         return send_file(
-            os.getcwd() + "/output/files.tar",
+            os.getcwd() + "/output/files.zip",
             as_attachment=False
         )        
 
