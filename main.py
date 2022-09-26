@@ -1,23 +1,21 @@
 import configparser
+import hashlib
 import io
 import json
 import os
 import pathlib
-import tarfile
+from zipfile import ZipFile
 
 from dotenv import load_dotenv
 from flask import Flask, render_template, send_file
 from flask_cors import CORS
+from flask_wtf import FlaskForm
 from qbittorrent import Client
 from termcolor import colored
-
-import utils
-
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
+from wtforms import PasswordField, StringField
 from wtforms.validators import DataRequired
 
-import hashlib
+import utils
 
 load_dotenv()
 QB_PASSWORD = os.getenv("QB_PASSWORD")
@@ -66,14 +64,13 @@ def download(path):
     if os.path.isfile("torrents/" + path):
         return send_file(os.getcwd()+"/torrents/" + path, as_attachment=True)
     else:
-        with tarfile.open("output/files.tar", "w") as f:
+        with ZipFile("output/files.tar", "w") as f:
             for file in os.listdir("torrents/" + path):
                 f.add("torrents/" + path + "/" + file)
 
         return send_file(
             os.getcwd() + "/output/files.tar",
-            as_attachment=False,
-            download_filename=".tar"
+            as_attachment=False
         )        
 
 @app.route("/resume/<path:path>")
