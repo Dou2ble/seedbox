@@ -39,7 +39,7 @@ print(colored(qb.torrents(), "green"))
 
 @app.route("/", methods=["POST", "GET"])
 def home():
-    torrents = qb.torrents()
+    torrents = qb.torrents(sort="name")
 
     for torrent in torrents:
         torrent["ratio"] = round(torrent["ratio"], 2)
@@ -53,7 +53,6 @@ def home():
 
     form = AddMagnet()
     if form.validate_on_submit():
-        print(colored(hashlib.sha256(str(form.password.data).encode("utf-8")).hexdigest(), "red"))
         if hashlib.sha256(str(form.password.data).encode("utf-8")).hexdigest() == PASSWORD_HASH:
             qb.download_from_link(str(form.magnet_uri.data))
 
