@@ -12,7 +12,7 @@
         <div id="options">
             <a href="/pause/all"><img class="filter-white" src="/static/icon/pause.svg" alt="pause"></a>
             <a href="/resume/all"><img class="filter-white" src="/static/icon/resume.svg" alt="resume"></a>
-            <img style="cursor: pointer;" class="filter-white" src="/static/icon/add.svg" alt="add" onclick='showDiv("blur")''>
+            <img style="cursor: pointer;" class="filter-white" src="/static/icon/add.svg" alt="add" onclick='showPopup("add-torrent")'>
         </div>
         <br>
         <h1>Torrents</h1>
@@ -58,8 +58,8 @@
         </table>
     </div>
     <div id="blur">
-        <div id="add">
-            <img class="filter-white" style="cursor: pointer;" src="/static/icon/close.svg" alt="close" onclick='hideDiv("blur")'>
+        <div id="add-torrent">
+            <img class="filter-white" style="cursor: pointer;" src="/static/icon/close.svg" alt="close" onclick='hidePopup("add-torrent")'>
             <form method="POST" action="/">
                 {{ form.csrf_token }}
                 {{ form.magnet_uri.label }}
@@ -79,11 +79,13 @@
 
 <script>
     //document.getElementById("button").onclick = toggleDiv()
-    function showDiv(id) {
+    function showPopup(id) {
+        document.getElementById("blur").style.visibility = "visible"
         document.getElementById(id).style.visibility = "visible"
     }
 
-    function hideDiv(id) {
+    function hidePopup(id) {
+        document.getElementById("blur").style.visibility = "hidden"
         document.getElementById(id).style.visibility = "hidden"
     }
 </script>
