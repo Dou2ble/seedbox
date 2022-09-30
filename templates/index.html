@@ -12,7 +12,7 @@
         <div id="options">
             <a href="/pause/all"><img class="filter-white" src="/static/icon/pause.svg" alt="pause"></a>
             <a href="/resume/all"><img class="filter-white" src="/static/icon/resume.svg" alt="resume"></a>
-            <img style="cursor: pointer;" class="filter-white" src="/static/icon/add.svg" alt="add" onclick='showDiv("add-container")''>
+            <img style="cursor: pointer;" class="filter-white" src="/static/icon/add.svg" alt="add" onclick='showDiv("blur")''>
         </div>
         <br>
         <h1>Torrents</h1>
@@ -57,9 +57,9 @@
             {% endfor %}
         </table>
     </div>
-    <div id="add-container">
+    <div id="blur">
         <div id="add">
-            <img class="filter-white" style="cursor: pointer;" src="/static/icon/close.svg" alt="close" onclick='hideDiv("add-container")'>
+            <img class="filter-white" style="cursor: pointer;" src="/static/icon/close.svg" alt="close" onclick='hideDiv("blur")'>
             <form method="POST" action="/">
                 {{ form.csrf_token }}
                 {{ form.magnet_uri.label }}
